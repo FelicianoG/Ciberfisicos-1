@@ -15,17 +15,21 @@ function ToneMapping() {
         object.material.needsUpdate = true;
       }
     });
-  }, [gl, scene]);
+  });
   return <></>;
 }
 
 function App() {
   const currentFrame = useRef();
-  const camera = new THREE.PerspectiveCamera();
-  camera.position.x = -13.4;
-  camera.position.y = 3.82;
-  camera.position.z = 31;
-  camera.fov = 8;
+  const [state, setState] = useState("");
+  const camera = useRef();
+  useEffect(() => {
+    camera.current = new THREE.PerspectiveCamera();
+    camera.current.position.x = -13.4;
+    camera.current.position.y = 3.82;
+    camera.current.position.z = 31;
+    camera.current.fov = 8;
+  }, []);
 
   return (
     <>
@@ -39,22 +43,23 @@ function App() {
             onChange={(e) => {
               currentFrame.current.children[1].position.z =
                 -4.65 - 4.85 * e.target.value;
-              (currentFrame.current.children[1].children[0].position.z =
-                -4.8 * e.target.value)(
-                (currentFrame.current.children[0].rotation.x =
-                  -120 * e.target.value)
-              );
+              currentFrame.current.children[1].children[0].position.z =
+                -4.8 * e.target.value;
+              currentFrame.current.children[0].rotation.x =
+                -120 * e.target.value;
+
               // eslint-disable-next-line no-undef
               console.log(currentFrame.current);
             }}
             type="range"
           ></input>
+          <input onChange={(e) => setState(e.target.value)}></input>
         </div>
         <div style={{ height: "100vh", flex: 1, width: "100%" }}>
           <Canvas
             flat
             linear
-            camera={camera}
+            camera={camera.current}
             style={{
               backgroundColor: "#ffaa44",
             }}

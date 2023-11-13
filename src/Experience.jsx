@@ -45,6 +45,7 @@ export const Experience = forwardRef((props, ref) => {
   return (
     <>
       <Model ref={ref}></Model>
+
       <OrbitControls target={[0, 0, 0]} />
 
       {/* <axesHelper args={[5]} /> */}
