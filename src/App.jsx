@@ -8,6 +8,7 @@ import "./App.css";
 import { Main } from "./styles";
 import { SideMenu } from "./components/SideMenu";
 import { ToneMapping } from "./components/ToneMapping";
+import Mqtt from "./Mqtt";
 
 function App() {
   const rootBone = useRef();
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <>
+      <Mqtt rootBone={rootBone}></Mqtt>
       <Main>
         <SideMenu orbitRef={orbitRef} rootBone={rootBone}></SideMenu>
         <div style={{ height: "100vh", flex: 1, width: "100%" }}>
