@@ -47,6 +47,7 @@ const Mqtt = ({ rootBone }) => {
   const [hidden, setHidden] = useState(true);
   const [connected, setConnected] = useState(false);
   const [client, setClient] = useState(() => {});
+  const [showIp, setShowIp] = useState(true);
 
   return (
     <MqttClientStyles>
