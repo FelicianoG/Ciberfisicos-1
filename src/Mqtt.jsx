@@ -21,7 +21,7 @@ const letsMqtt = (
     protocol: "mqtt",
     clientId: "b0908853",
   };
-  var client = mqtt.connect(`ws://${httpRoute}:8883`, options);
+  var client = mqtt.connect(`${httpRoute}`, options);
 
   client.subscribe(topic); //topic
   client.on("message", (topic, message) => {
@@ -42,7 +42,7 @@ const letsMqtt = (
 
 // eslint-disable-next-line react/prop-types
 const Mqtt = ({ rootBone }) => {
-  const [httpRoute, setHttpRoute] = useState("192.168.62.210");
+  const [httpRoute, setHttpRoute] = useState("");
   const [topic, setTopic] = useState("planta");
   const [hidden, setHidden] = useState(true);
   const [connected, setConnected] = useState(false);
@@ -56,7 +56,7 @@ const Mqtt = ({ rootBone }) => {
           {!connected ? (
             <>
               <TextInput
-                defaultValue="192.168.62.210"
+                defaultValue=""
                 label={"IP address"}
                 onChange={setHttpRoute}
               ></TextInput>
