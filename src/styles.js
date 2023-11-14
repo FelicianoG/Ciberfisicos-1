@@ -81,3 +81,37 @@ export const ButtonGrid = styled.div`
   flex-wrap: wrap;
   gap: 0.4rem;
 `;
+
+export const MqttClientStyles = styled.div`
+  .modal {
+    position: absolute;
+    z-index: 3;
+    background-color: #000811dd;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .send-btn {
+    height: 2rem;
+    min-width: 6rem;
+  }
+  .cross {
+    position: absolute;
+    z-index: 4;
+    right: 0;
+    top: 0;
+    margin: 2rem;
+    min-width: 3rem;
+    min-height: 3rem;
+    font-size: 1rem;
+  }
+  button {
+    margin: 2rem;
+  }
+  h3 {
+    margin: 0;
+  }
+`;
