@@ -39,7 +39,7 @@ function App() {
             }}
           >
             <ToneMapping exposure={2.2} />
-            <OrbitControls ref={orbitRef} target={[0, 0, -2.5]} />
+            <OrbitControls ref={orbitRef} target={[1, 0, -8]} />
             <Experience ref={rootBone} />
           </Canvas>
         </div>

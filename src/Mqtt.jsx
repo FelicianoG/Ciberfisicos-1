@@ -4,15 +4,20 @@
 /* eslint-disable import/default */
 // eslint-disable-next-line import/namespace
 import mqtt from "mqtt";
-import { handlePlantAnimationValue } from "./handlerFunctions";
+import {
+  handlePlantAnimation,
+  animateNumericVariableTemp,
+} from "./handlerFunctions";
 import { MqttClientStyles } from "./styles";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { TextInput } from "./components/TextInput";
 
 const letsMqtt = (
   rootBone,
   httpRoute,
   topic,
+  position,
+  animationFrame,
   onConnect = () => {},
   onDisconnect = () => {},
   setClient = () => {}
@@ -28,7 +33,14 @@ const letsMqtt = (
     const value = JSON.parse(message.toString()).value;
     // eslint-disable-next-line no-undef
     console.log(JSON.parse(message.toString()));
-    handlePlantAnimationValue(value, rootBone);
+    // handlePlantAnimation(value, rootBone);
+    animateNumericVariableTemp(
+      position.current,
+      value,
+      position,
+      rootBone,
+      animationFrame
+    );
   });
   // client.on("disconnect", () => {
   //   // eslint-disable-next-line no-undef
@@ -48,6 +60,8 @@ const Mqtt = ({ rootBone }) => {
   const [connected, setConnected] = useState(false);
   const [client, setClient] = useState(() => {});
   const [showIp, setShowIp] = useState(true);
+  const position = useRef(0);
+  const animationFrame = useRef();
 
   return (
     <MqttClientStyles>
@@ -73,6 +87,8 @@ const Mqtt = ({ rootBone }) => {
                     rootBone,
                     httpRoute,
                     topic,
+                    position,
+                    animationFrame,
                     setConnected,
                     // eslint-disable-next-line no-undef
                     console.log("disconnected"),
