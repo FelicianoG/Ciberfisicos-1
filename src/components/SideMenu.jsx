@@ -27,9 +27,12 @@ export const SideMenu = ({ orbitRef, rootBone }) => {
           min={0}
           step={0.01}
           onChange={(e) => {
-            handlePlantAnimation(e, rootBone);
+            handlePlantAnimation(e.target.value, rootBone);
           }}
         />
+        <input
+          onChange={(e) => handlePlantAnimation(e.target.value, rootBone)}
+        ></input>
       </section>
       <ButtonGrid>
         <CamButton orbitRef={orbitRef} title={"A1"} />
