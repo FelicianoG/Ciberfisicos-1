@@ -14,6 +14,7 @@ function App() {
   const rootBone = useRef();
   const cameraRef = useRef();
   const orbitRef = useRef();
+  const speed = useRef(0.001);
 
   useEffect(() => {
     //Camera Setup
@@ -26,7 +27,7 @@ function App() {
 
   return (
     <>
-      <Mqtt rootBone={rootBone}></Mqtt>
+      <Mqtt rootBone={rootBone} speed={speed}></Mqtt>
       <Main>
         <SideMenu orbitRef={orbitRef} rootBone={rootBone}></SideMenu>
         <div style={{ height: "100vh", flex: 1, width: "100%" }}>

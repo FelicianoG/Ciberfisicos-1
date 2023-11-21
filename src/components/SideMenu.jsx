@@ -79,7 +79,6 @@ export const SideMenu = ({ orbitRef, rootBone }) => {
       </section>
 
       <ButtonGrid>
-        <h3>Camera Control</h3>
         <CamButton orbitRef={orbitRef} title={"A1"} />
         <CamButton orbitRef={orbitRef} title={"A2"} />
         <CamButton orbitRef={orbitRef} title={"A3"} />

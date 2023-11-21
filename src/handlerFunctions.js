@@ -4,7 +4,7 @@ export const handlePlantAnimation = (position, rootBone) => {
   rootBone.current.children[0].rotation.x = -120 * position;
 
   // eslint-disable-next-line no-undef
-  console.log(rootBone.current);
+  // console.log(rootBone.current);
 };
 
 export const handleCamera = (e, orbitRef) => {
@@ -18,11 +18,14 @@ export function animateNumericVariableTemp(
   position,
   rootBone,
   animationFrame,
+  speed,
   callback
 ) {
-  const speed = 0.001;
   const distance = endValue - startValue;
-  const duration = Math.abs(distance) / speed;
+  const duration = Math.abs(distance) / speed.current;
+
+  // eslint-disable-next-line no-undef
+  console.log("spped: " + speed.current);
 
   // eslint-disable-next-line no-undef
   const startTime = performance.now();

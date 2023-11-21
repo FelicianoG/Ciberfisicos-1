@@ -4,56 +4,14 @@
 /* eslint-disable import/default */
 // eslint-disable-next-line import/namespace
 import mqtt from "mqtt";
-import {
-  handlePlantAnimation,
-  animateNumericVariableTemp,
-} from "./handlerFunctions";
+import { animateNumericVariableTemp } from "./handlerFunctions";
 import { MqttClientStyles } from "./styles";
 import { useRef, useState } from "react";
 import { TextInput } from "./components/TextInput";
-
-const letsMqtt = (
-  rootBone,
-  httpRoute,
-  topic,
-  position,
-  animationFrame,
-  onConnect = () => {},
-  onDisconnect = () => {},
-  setClient = () => {}
-) => {
-  var options = {
-    protocol: "mqtt",
-    clientId: "b0908853",
-  };
-  var client = mqtt.connect(`${httpRoute}`, options);
-
-  client.subscribe(topic); //topic
-  client.on("message", (topic, message) => {
-    const value = JSON.parse(message.toString()).value;
-    // eslint-disable-next-line no-undef
-    console.log(JSON.parse(message.toString()));
-    // handlePlantAnimation(value, rootBone);
-    animateNumericVariableTemp(
-      position.current,
-      value,
-      position,
-      rootBone,
-      animationFrame
-    );
-  });
-  // client.on("disconnect", () => {
-  //   // eslint-disable-next-line no-undef
-  //   console.log("disconnected");
-  // });
-  client.on("connect", onConnect);
-  // eslint-disable-next-line no-undef
-  client.on("end", () => onConnect(false));
-  setClient(client);
-};
+import { Slider } from "./components/Slider";
 
 // eslint-disable-next-line react/prop-types
-const Mqtt = ({ rootBone }) => {
+const Mqtt = ({ rootBone, speed }) => {
   const [httpRoute, setHttpRoute] = useState("");
   const [topic, setTopic] = useState("planta");
   const [hidden, setHidden] = useState(true);
@@ -62,6 +20,47 @@ const Mqtt = ({ rootBone }) => {
   const [showIp, setShowIp] = useState(true);
   const position = useRef(0);
   const animationFrame = useRef();
+
+  const letsMqtt = (
+    rootBone,
+    httpRoute,
+    topic,
+    position,
+    animationFrame,
+    onConnect = () => {},
+    onDisconnect = () => {},
+    setClient = () => {}
+  ) => {
+    var options = {
+      protocol: "mqtt",
+      clientId: "b0908853",
+    };
+    var client = mqtt.connect(`${httpRoute}`, options);
+
+    client.subscribe(topic); //topic
+    client.on("message", (topic, message) => {
+      const value = JSON.parse(message.toString()).value;
+      // eslint-disable-next-line no-undef
+      console.log(JSON.parse(message.toString()));
+      // handlePlantAnimation(value, rootBone);
+      animateNumericVariableTemp(
+        position.current,
+        value,
+        position,
+        rootBone,
+        animationFrame,
+        speed
+      );
+    });
+    // client.on("disconnect", () => {
+    //   // eslint-disable-next-line no-undef
+    //   console.log("disconnected");
+    // });
+    client.on("connect", onConnect);
+    // eslint-disable-next-line no-undef
+    client.on("end", () => onConnect(false));
+    setClient(client);
+  };
 
   return (
     <MqttClientStyles>
@@ -80,6 +79,16 @@ const Mqtt = ({ rootBone }) => {
                 label={"Topic"}
                 onChange={setTopic}
               ></TextInput>
+              <TextInput
+                // eslint-disable-next-line react/prop-types
+                defaultValue={speed.current}
+                label={"Velocidad"}
+                onChange={(e) => {
+                  // eslint-disable-next-line react/prop-types
+                  speed.current = +e;
+                }}
+              ></TextInput>
+
               <button
                 className="send-btn"
                 onClick={() => {
@@ -102,6 +111,15 @@ const Mqtt = ({ rootBone }) => {
           ) : (
             <>
               <h2>Connected</h2>
+              <TextInput
+                // eslint-disable-next-line react/prop-types
+                defaultValue={speed.current}
+                label={"Velocidad"}
+                onChange={(e) => {
+                  // eslint-disable-next-line react/prop-types
+                  speed.current = +e;
+                }}
+              ></TextInput>
               <button
                 className="send-btn"
                 onClick={() => {
