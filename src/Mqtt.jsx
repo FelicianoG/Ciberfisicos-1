@@ -9,6 +9,8 @@ import { MqttClientStyles } from "./styles";
 import { useRef, useState } from "react";
 import { TextInput } from "./components/TextInput";
 import { Slider } from "./components/Slider";
+import LogoutButton from './components/LogoutButton';
+
 
 // eslint-disable-next-line react/prop-types
 const Mqtt = ({ rootBone, speed }) => {
@@ -66,7 +68,8 @@ const Mqtt = ({ rootBone, speed }) => {
     <MqttClientStyles>
       {!hidden ? (
         <section className="modal">
-          <h1>MQTT</h1>
+          <h1>Settings</h1>
+          <LogoutButton />
           {!connected ? (
             <>
               <TextInput
@@ -137,8 +140,10 @@ const Mqtt = ({ rootBone, speed }) => {
       ) : (
         <>
           <button className="cross" onClick={() => setHidden((prev) => !prev)}>
-            MQTT
+            Menu
           </button>
+          
+          
         </>
       )}
     </MqttClientStyles>
