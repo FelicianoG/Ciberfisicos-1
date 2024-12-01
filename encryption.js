@@ -17,8 +17,14 @@ function encryptMessage(message, keyString, ivString) {
     return encrypted.toString();
 }
 
-// Example usage
-const message = "0.5";
+// Get message from command-line arguments
+const args = process.argv.slice(2);
+if (args.length === 0) {
+    console.error("Please provide a message to encrypt as the first argument.");
+    process.exit(1);
+}
+
+const message = args[0];
 const key = "holasoydiegovalu"; // Must be 16 bytes for AES-128
 const iv = "holasoydiegovalu";  // Must be 16 bytes for AES
 

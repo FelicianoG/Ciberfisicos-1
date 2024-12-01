@@ -37,15 +37,18 @@ function decryptMessage(encryptedMessage, keyString, ivString) {
     }
 }
 
-// Example usage
+// Get encrypted message from command-line arguments
+const args = process.argv.slice(2);
+if (args.length === 0) {
+    console.error("Please provide an encrypted message as the first argument.");
+    process.exit(1);
+}
+
+const encryptedMessage = args[0];
+const key = "holasoydiegovalu"; // Must match the key used for encryption
+const iv = "holasoydiegovalu";  // Must match the IV used for encryption
+
 try {
-    // Replace with your encrypted message (Base64 encoded)
-    const encryptedMessage = "Cv9gMKmxtbzkpwLBzSWYIQ==";
-
-    // Replace with your 16-byte key and IV
-    const key = "holasoydiegovalu"; // Must match the key used for encryption
-    const iv = "holasoydiegovalu";  // Must match the IV used for encryption
-
     // Decrypt the message
     const plaintext = decryptMessage(encryptedMessage, key, iv);
     console.log("Decrypted Message:", plaintext);
