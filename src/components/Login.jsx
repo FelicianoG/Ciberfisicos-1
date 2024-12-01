@@ -2,42 +2,31 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Reemplaza useHistory con useNavigate
 
 const Login = () => {
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate(); // Usa useNavigate en lugar de useHistory
 
-  const predefinedUsername = "admin";
-  const predefinedPassword = "password123";
+  const predefinedPassword = "holasoydiegovalu";
 
-  const handleLogin = (e) => {
+  const handleKey = (e) => {
     e.preventDefault();
-  
-    if (username === predefinedUsername && password === predefinedPassword) {
+
+    if (password === predefinedPassword) {
       localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("EncryptionKey", password);
       navigate("/"); // Redirige a la ruta raíz
     } else {
-      setError("Usuario o contraseña incorrectos");
+      setError("Error in key");
     }
   };
-  
+
 
   return (
     <div style={{ maxWidth: "300px", margin: "0 auto", padding: "20px" }}>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      <h2>Key Capture</h2>
+      <form onSubmit={handleKey}>
         <div>
-          <label htmlFor="username">Nombre de usuario:</label> {/* Asocia el label con el input */}
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Contraseña:</label> {/* Asocia el label con el input */}
+          <label htmlFor="password">Decryption Key:</label> {/* Asocia el label con el input */}
           <input
             type="password"
             id="password"
@@ -47,7 +36,7 @@ const Login = () => {
           />
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit">Proceder a la app</button>
       </form>
     </div>
   );
