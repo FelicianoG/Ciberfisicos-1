@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useRef } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Experience } from "./Experience";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
@@ -9,15 +9,17 @@ import { Main } from "./styles";
 import { SideMenu } from "./components/SideMenu";
 import { ToneMapping } from "./components/ToneMapping";
 import Mqtt from "./Mqtt";
+import Login from "./components/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-function App() {
+
+const MainContent = () => {
   const rootBone = useRef();
   const cameraRef = useRef();
   const orbitRef = useRef();
   const speed = useRef(0.001);
 
   useEffect(() => {
-    //Camera Setup
     cameraRef.current = new THREE.PerspectiveCamera();
     cameraRef.current.position.x = -13.4;
     cameraRef.current.position.y = 3.82;
@@ -27,10 +29,13 @@ function App() {
 
   return (
     <>
-      <Mqtt rootBone={rootBone} speed={speed}></Mqtt>
+      <Mqtt rootBone={rootBone} speed={speed} />
+
       <Main>
-        <SideMenu orbitRef={orbitRef} rootBone={rootBone}></SideMenu>
+      
+        <SideMenu orbitRef={orbitRef} rootBone={rootBone} />
         <div style={{ height: "100vh", flex: 1, width: "100%" }}>
+        
           <Canvas
             flat
             linear
@@ -46,6 +51,17 @@ function App() {
         </div>
       </Main>
     </>
+  );
+};
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<ProtectedRoute component={MainContent} />} />
+      </Routes>
+    </Router>
   );
 }
 
