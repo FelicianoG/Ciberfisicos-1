@@ -81,10 +81,10 @@ const Mqtt = ({ rootBone, speed }) => {
 
     client.subscribe(topic); //topic
     client.on("message", (topic, message) => {
-      console.log('ran1')
-      console.dir(message)
+      // console.log('ran1')
+      // console.dir(message)
       const value = JSON.parse(message.toString()).value;
-      console.dir(value)
+      // console.dir(value)
       const decryptedValue = decryptMessage(value)
 
       console.log('decrypted value = ', decryptedValue)
@@ -150,7 +150,8 @@ const Mqtt = ({ rootBone, speed }) => {
                     animationFrame,
                     setConnected,
                     // eslint-disable-next-line no-undef
-                    console.log("disconnected"),
+                    // console.log("disconnected"),
+                    console.log(""),
                     setClient
                   );
                 }}

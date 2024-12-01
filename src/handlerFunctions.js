@@ -25,7 +25,7 @@ export function animateNumericVariableTemp(
   const duration = Math.abs(distance) / speed.current;
 
   // eslint-disable-next-line no-undef
-  console.log("spped: " + speed.current);
+  // console.log("spped: " + speed.current);
 
   // eslint-disable-next-line no-undef
   const startTime = performance.now();
